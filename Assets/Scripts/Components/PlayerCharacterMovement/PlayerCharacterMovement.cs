@@ -12,6 +12,14 @@ public sealed class PlayerCharacterMovement : MonoBehaviour
 	[Tooltip("1 초에 걸쳐 최대 속력의 몇 퍼센트만큼 가속되도록 할 것인지를 결정합니다.")]
 	[SerializeField] private float _OneSecAcceleration = 600.0f;
 
+	[Header("Orient Rotation To Movement")]
+	[Tooltip("이동하는 방향으로 회전시킵니다.")]
+	[SerializeField] private bool _UseOrientRotationToMovement = true;
+
+	[Header("Yaw 회전 속력")]
+	[Tooltip("이동하는 방향으로 회전시킵니다. (UseOrientRotationToMovement 속성을 사용할 때 적용됩니다.)")]
+	[SerializeField] private float _RotationYawSpeed = 720.0f;
+
 	#region Move
 	// 이동 입력 값을 나타냅니다.
 	private Vector3 _InputVector;
@@ -32,6 +40,12 @@ public sealed class PlayerCharacterMovement : MonoBehaviour
 	private void Awake()
 	{
 		characterController = GetComponent<CharacterController>();
+	}
+
+	private void Update()
+	{
+		// 캐릭터를 회전시킵니다.
+		OrientRotationToMovement();
 	}
 
 	private void FixedUpdate()
@@ -94,6 +108,35 @@ public sealed class PlayerCharacterMovement : MonoBehaviour
 		characterController.Move(_Velocity);
 	}
 
+	// 이동하는 방향으로 캐릭터를 회전시킵니다.
+	private void OrientRotationToMovement()
+	{
+		// _UseOrientRotationToMovement 속성을 사용하지 않는다면 실행하지 않습니다.
+		if (!_UseOrientRotationToMovement) return;
+
+		// 이동 불가능 상태라면 실행하지 않습니다.
+		if (!isMovable) return;
+
+		// 이동이 있을 경우에만 회전이 이루어져야 하므로 이동 입력이 없을 경우 실행하지 않습니다.
+		if (_InputVector.magnitude <= characterController.minMoveDistance) return;
+
+
+
+		// 현재 회전값을 얻습니다.
+		float currentYawRotation = transform.eulerAngles.y;
+
+		// 목표 회전값을 얻습니다.
+		float tawrgetYawRotation = _TargetVelocity.ToAngle(castDirVector : true);
+
+		// 다음 회전값을 얻습니다.
+		float nextYawRotation = Mathf.MoveTowardsAngle(
+			currentYawRotation, tawrgetYawRotation, _RotationYawSpeed * Time.deltaTime);
+
+		// 적용시킬 오일러각을 저장합니다.
+		Vector3 newEulerAngle = Vector3.up * nextYawRotation;
+
+		transform.eulerAngles = newEulerAngle;
+	}
 	
 
 

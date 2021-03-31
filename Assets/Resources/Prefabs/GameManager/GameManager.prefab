@@ -150,6 +150,24 @@ MonoBehaviour:
     game: 1
     ui: 0
     useUnityInput: 0
+  - axisName: Mouse X
+    lowKey: 0
+    highKey: 0
+    game: 1
+    ui: 0
+    useUnityInput: 1
+  - axisName: Mouse Y
+    lowKey: 0
+    highKey: 0
+    game: 1
+    ui: 0
+    useUnityInput: 1
+  - axisName: Mouse ScrollWheel
+    lowKey: 0
+    highKey: 0
+    game: 1
+    ui: 0
+    useUnityInput: 1
 --- !u!1 &6244205296493461430
 GameObject:
   m_ObjectHideFlags: 0
