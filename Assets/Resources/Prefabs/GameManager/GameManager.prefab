@@ -136,7 +136,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _InputMode: 1
   _CursorVisibility: 0
-  _ActionInput: []
+  _ActionInput:
+  - actionName: Jump
+    key: 32
+    game: 1
+    ui: 0
   _AxisInput:
   - axisName: Horizontal
     lowKey: 97

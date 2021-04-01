@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6349439650487919166}
   - component: {fileID: 6349439650487919164}
   - component: {fileID: 6349439650487919165}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 6349439651545319928}
   - component: {fileID: 6349439651545319934}
   - component: {fileID: 6349439651545319935}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +171,7 @@ GameObject:
   - component: {fileID: 6349439651562755707}
   - component: {fileID: 6349439651562755700}
   - component: {fileID: 6349439651562755701}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DefaultPlayerableCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,6 +228,13 @@ MonoBehaviour:
   _OneSecAcceleration: 600
   _UseOrientRotationToMovement: 1
   _RotationYawSpeed: 720
+  _MaxJumpCount: 2
+  _JumpVelocityY: 10
+  _GravityScale: 1
+  _MaxYVelocity: 10
+  _IgnoreGroundLayers:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &6349439651562755701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,7 +266,7 @@ GameObject:
   - component: {fileID: 813691944517202251}
   - component: {fileID: 503262816329811529}
   - component: {fileID: 3608237689041440881}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,7 +379,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8269823670283364266}
   - component: {fileID: 1377066293829433819}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SpringArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -419,4 +426,4 @@ MonoBehaviour:
   _RemoveAllCameraObject: 1
   _LayerToIgnore:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
