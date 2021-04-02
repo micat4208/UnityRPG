@@ -63,6 +63,22 @@ public sealed class PlayerCharacterMovement : MonoBehaviour
 
 	#endregion
 
+	// 속도를 나타냅니다.
+	public Vector3 velocity => characterController.velocity;
+
+	// Y 축을 제외한 속도를 나타냅니다.
+	public Vector3 moveXZVelocity
+	{
+		get
+		{
+			Vector3 velocity = characterController.velocity;
+			velocity.y = 0.0f;
+			return velocity;
+		}
+	}
+
+
+
 	// 땅에 닿음 상태를 나타냅니다.
 	public bool isGrounded { get; private set; }
 
