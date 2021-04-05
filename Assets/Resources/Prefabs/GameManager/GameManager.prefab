@@ -141,6 +141,10 @@ MonoBehaviour:
     key: 32
     game: 1
     ui: 0
+  - actionName: Interact
+    key: 102
+    game: 1
+    ui: 0
   _AxisInput:
   - axisName: Horizontal
     lowKey: 97
