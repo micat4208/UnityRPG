@@ -4,8 +4,11 @@ using UnityEngine;
 
 public sealed class Npc : MonoBehaviour
 {
-	[Header("Npc Code 를 나타냅니다.")]
+	[Header("Npc Code")]
 	[SerializeField] private string _NpcCode;
+
+	[Header("상호작용 뷰 타깃")]
+	[SerializeField] private Transform _ViewTarget;
 
 	// HUD_NpcDialog 프리팹을 나타냅니다.
 	private NpcDialog _HUD_NpcDialogPrefab;
@@ -31,6 +34,9 @@ public sealed class Npc : MonoBehaviour
 		interactableArea.onInteractionStarted +=
 			() =>
 			{
+				var playerCharacter = PlayerManager.Instance.playerController.playerableCharacter 
+				as PlayerableCharacter;
+
 				// NpcDialog 생성
 				var npcDialog = PlayerManager.Instance.playerController.screenInstance.
 					CreateChildHUD(_HUD_NpcDialogPrefab);
@@ -38,6 +44,11 @@ public sealed class Npc : MonoBehaviour
 				// NpcDialog 초기화
 				npcDialog.InitializeNpcDialog(this);
 
+				// 뷰 타깃을 변경합니다.
+				playerCharacter.springArm.SetViewTarget(_ViewTarget);
+
+				// HUD 가 닫힐 때 뷰 타깃을 초기화합니다.
+				npcDialog.onDlgClosed += () => playerCharacter.springArm.SetViewTarget(null);
 			};
 	}
 
