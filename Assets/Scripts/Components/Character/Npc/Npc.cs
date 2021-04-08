@@ -34,12 +34,18 @@ public sealed class Npc : MonoBehaviour
 		interactableArea.onInteractionStarted +=
 			() =>
 			{
-				var playerCharacter = PlayerManager.Instance.playerController.playerableCharacter 
-				as PlayerableCharacter;
+				var playerCharacter = PlayerManager.Instance.playerController.playerableCharacter as PlayerableCharacter;
+				var gameScreenInstance = (PlayerManager.Instance.playerController.screenInstance as GameScreenInstance);
+
+				// FadeOut 애니메이션 재생
+				gameScreenInstance.effectController.PlayAnimation(ScreenEffectType.ScreenFadeOut);
 
 				// NpcDialog 생성
-				var npcDialog = PlayerManager.Instance.playerController.screenInstance.
-					CreateChildHUD(_HUD_NpcDialogPrefab);
+				var npcDialog = gameScreenInstance.CreateChildHUD(_HUD_NpcDialogPrefab);
+
+				// 생성한 HUD 를 화면에 맞춥니다.
+				npcDialog.rectTransform.offsetMin = 
+				npcDialog.rectTransform.offsetMax = Vector2.zero;
 
 				// NpcDialog 초기화
 				npcDialog.InitializeNpcDialog(this);
@@ -48,7 +54,14 @@ public sealed class Npc : MonoBehaviour
 				playerCharacter.springArm.SetViewTarget(_ViewTarget);
 
 				// HUD 가 닫힐 때 뷰 타깃을 초기화합니다.
-				npcDialog.onDlgClosed += () => playerCharacter.springArm.SetViewTarget(null);
+				npcDialog.onDlgClosed += () =>
+				{
+					// FadeOut 애니메이션 재생
+					gameScreenInstance.effectController.PlayAnimation(ScreenEffectType.ScreenFadeOut);
+
+					// 뷰 타깃 초기화
+					playerCharacter.springArm.SetViewTarget(null);
+				};
 			};
 	}
 
@@ -56,7 +69,7 @@ public sealed class Npc : MonoBehaviour
 	private void InitializeNpc()
 	{
 		bool fileNotFound;
-		_NpcInfo = ResourceManager.Instance.LoadJson<NpcInfo>($"NpcInfo/{_NpcCode}.json", out fileNotFound);
+		_NpcInfo = ResourceManager.Instance.LoadJson<NpcInfo>("NpcInfo", $"{_NpcCode}.json", out fileNotFound);
 		
 #if UNITY_EDITOR
 		if (fileNotFound) Debug.LogError($"{_NpcCode}.json not Found");
