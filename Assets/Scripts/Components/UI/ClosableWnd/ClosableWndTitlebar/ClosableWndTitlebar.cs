@@ -1,10 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public sealed class ClosableWndTitlebar:MonoBehaviour, IDragHandler, IBeginDragHandler
 {
+
+	// 타이틀 제목 텍스트를 나타냅니다.
+	[SerializeField] private TextMeshProUGUI _TMP_Title;
+
+	// 닫기 버튼을 나타냅니다.
+	[SerializeField] private Button _Button_Close;
+
 	// 이동시킬 ClosableWnd 를 나타냅니다.
 	private ClosableWndBase _ClosableWnd;
 
@@ -13,6 +22,7 @@ public sealed class ClosableWndTitlebar:MonoBehaviour, IDragHandler, IBeginDragH
 	/// - 드래그 후 창의 위치를 계산하기 위해 사용됩니다.
 
 	public RectTransform rectTransform => transform as RectTransform;
+	public Button closeButton => _Button_Close;
 
 
 	private void Awake() =>
@@ -55,4 +65,7 @@ public sealed class ClosableWndTitlebar:MonoBehaviour, IDragHandler, IBeginDragH
 		// 다음 연산을 위하여 현재 위치를 저장합니다.
 		_PrevInputPosition = currentInputPosition;
 	}
+
+	// 타이틀 텍스트를 설정합니다.
+	public void SetTitleText(string titleText) => _TMP_Title.SetText(titleText);
 }

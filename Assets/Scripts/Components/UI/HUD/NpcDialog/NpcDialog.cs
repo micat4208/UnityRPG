@@ -10,6 +10,7 @@ public sealed class NpcDialog : MonoBehaviour
 	[SerializeField] private Image _Image_NpcNameBackgournd;
 
 	[Header("Menu Buttons")]
+	[SerializeField] private Button _Button_Shop;
 	[SerializeField] private Button _Button_NextDialog;
 	[SerializeField] private Button _Button_Close;
 
@@ -43,6 +44,17 @@ public sealed class NpcDialog : MonoBehaviour
 	// 버튼 클릭 이벤트를 바인딩합니다.
 	private void BindButtonEvents()
 	{
+		// 상점 버튼을 눌렀을 때 실행할 내용을 정의합니다.
+		_Button_Shop.onClick.AddListener(
+			() =>
+			{
+				var gameScreenInstance = (PlayerManager.Instance.playerController.screenInstance as GameScreenInstance);
+				gameScreenInstance.CreateWnd(
+					ResourceManager.Instance.LoadResource<GameObject>(
+						"",
+						"Prefabs/UI/ClosableWnd/ClosableWnd").GetComponent<ClosableWndBase>());
+			});
+
 		_Button_Close.onClick.AddListener(
 			() => 
 			{
