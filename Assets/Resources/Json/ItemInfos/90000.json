@@ -1,0 +1,9 @@
+{
+    "itemCode": "90000",
+    "itemType": 0,
+    "itemName": "누군가의 도끼",
+    "itemDescription": "누군가가 사용하던 도끼다.\n주인은 알수 없다.",
+    "itemImagePath": "Image/ItemImage/90000",
+    "maxSlotCount": 100,
+    "price": 1210
+}

@@ -1,0 +1,9 @@
+{
+    "itemCode": "90019",
+    "itemType": 0,
+    "itemName": "강철 어깨 보호대",
+    "itemDescription": "이 아이템을 소지하면 근처 아군에게 좋은 일이 생길것 같다.",
+    "itemImagePath": "Image/ItemImage/90019",
+    "maxSlotCount": 200,
+    "price": 960
+}

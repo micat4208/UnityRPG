@@ -1,0 +1,9 @@
+{
+    "itemCode": "90004",
+    "itemType": 0,
+    "itemName": "증폭의 고서",
+    "itemDescription": "소지한다면 주문력이 20 증가할것 같은 책이다.\n실제로는 증가하지 않는다",
+    "itemImagePath": "Image/ItemImage/90004",
+    "maxSlotCount": 200,
+    "price": 435
+}

@@ -1,0 +1,9 @@
+{
+    "itemCode": "90024",
+    "itemType": 0,
+    "itemName": "덤불 조끼",
+    "itemDescription": "때리면 내가 아프다.",
+    "itemImagePath": "Image/ItemImage/90024",
+    "maxSlotCount": 200,
+    "price": 10
+}

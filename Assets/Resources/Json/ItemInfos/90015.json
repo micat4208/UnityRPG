@@ -1,0 +1,9 @@
+{
+    "itemCode": "90015",
+    "itemType": 0,
+    "itemName": "누군가의 바지",
+    "itemDescription": "누군가의 바지.\n주인은 알수 없다.",
+    "itemImagePath": "Image/ItemImage/90015",
+    "maxSlotCount": 200,
+    "price": 1670
+}

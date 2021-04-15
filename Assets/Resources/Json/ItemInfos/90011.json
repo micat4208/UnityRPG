@@ -1,0 +1,9 @@
+{
+    "itemCode": "90011",
+    "itemType": 0,
+    "itemName": "누군가의 투구",
+    "itemDescription": "누군가의 투구이다.\n주인은 알수 없다.",
+    "itemImagePath": "Image/ItemImage/90011",
+    "maxSlotCount": 200,
+    "price": 1650
+}

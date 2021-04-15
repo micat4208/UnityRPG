@@ -1,0 +1,9 @@
+{
+    "itemCode": "90018",
+    "itemType": 0,
+    "itemName": "도란의 방패",
+    "itemDescription": "세상에서 가장 많이 팔린 방패",
+    "itemImagePath": "Image/ItemImage/90018",
+    "maxSlotCount": 200,
+    "price": 450
+}

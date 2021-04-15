@@ -1,0 +1,9 @@
+{
+    "itemCode": "90003",
+    "itemType": 0,
+    "itemName": "누군가의 벨트",
+    "itemDescription": "누군가의 벨트다.\n주인은 알수 없다.",
+    "itemImagePath": "Image/ItemImage/90003",
+    "maxSlotCount": 200,
+    "price": 990
+}

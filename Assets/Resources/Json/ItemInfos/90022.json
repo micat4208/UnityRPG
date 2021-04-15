@@ -1,0 +1,9 @@
+{
+    "itemCode": "90022",
+    "itemType": 0,
+    "itemName": "마나 물약",
+    "itemDescription": "마나를 회복한다.",
+    "itemImagePath": "Image/ItemImage/90022",
+    "maxSlotCount": 200,
+    "price": 10
+}

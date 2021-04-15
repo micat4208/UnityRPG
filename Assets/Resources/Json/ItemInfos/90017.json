@@ -1,0 +1,9 @@
+{
+    "itemCode": "90017",
+    "itemType": 0,
+    "itemName": "낡은 주문서",
+    "itemDescription": "알수 없는 글자들로 가득하다.",
+    "itemImagePath": "Image/ItemImage/90017",
+    "maxSlotCount": 200,
+    "price": 800
+}

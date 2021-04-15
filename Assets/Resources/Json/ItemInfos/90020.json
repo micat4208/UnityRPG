@@ -1,0 +1,9 @@
+{
+    "itemCode": "90020",
+    "itemType": 0,
+    "itemName": "롱소드",
+    "itemDescription": "꽤 많이 팔린 칼",
+    "itemImagePath": "Image/ItemImage/90020",
+    "maxSlotCount": 200,
+    "price": 350
+}

@@ -91,6 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _TMP_Count: {fileID: 4623991883804470669}
+  _Image_Slot: {fileID: 8592955974005805859}
 --- !u!114 &8565130388717764464
 MonoBehaviour:
   m_ObjectHideFlags: 0

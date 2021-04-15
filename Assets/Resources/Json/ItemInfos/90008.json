@@ -1,0 +1,9 @@
+{
+    "itemCode": "90008",
+    "itemType": 0,
+    "itemName": "은화",
+    "itemDescription": "상태가 좋아보이지 않는 은화이다.\n상인에게 가져가보자.",
+    "itemImagePath": "Image/ItemImage/90008",
+    "maxSlotCount": 200,
+    "price": 1000
+}

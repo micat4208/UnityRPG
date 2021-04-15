@@ -1,0 +1,9 @@
+{
+    "itemCode": "90009",
+    "itemType": 0,
+    "itemName": "여신의 눈물",
+    "itemDescription": "황색 머리의 남자가 좋아할것 같은 물건이다.",
+    "itemImagePath": "Image/ItemImage/90009",
+    "maxSlotCount": 200,
+    "price": 400
+}

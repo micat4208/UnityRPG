@@ -1,0 +1,9 @@
+{
+    "itemCode": "90012",
+    "itemType": 0,
+    "itemName": "철괴",
+    "itemDescription": "무기나 방어구를 제작할 때 사용될것 같다.",
+    "itemImagePath": "Image/ItemImage/90012",
+    "maxSlotCount": 200,
+    "price": 3380
+}

@@ -1,0 +1,9 @@
+{
+    "itemCode": "90006",
+    "itemType": 0,
+    "itemName": "누군가의 손목 보호대",
+    "itemDescription": "누군가의 손목 보호대.\n주인은 알수 없다.",
+    "itemImagePath": "Image/ItemImage/90006",
+    "maxSlotCount": 200,
+    "price": 630
+}

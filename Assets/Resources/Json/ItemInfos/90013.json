@@ -1,0 +1,9 @@
+{
+    "itemCode": "90013",
+    "itemType": 0,
+    "itemName": "고기",
+    "itemDescription": "기분이 저기압이라면 앞으로 가야 한다.",
+    "itemImagePath": "Image/ItemImage/90013",
+    "maxSlotCount": 200,
+    "price": 960
+}

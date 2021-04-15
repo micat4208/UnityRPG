@@ -1,0 +1,9 @@
+{
+    "itemCode": "90007",
+    "itemType": 0,
+    "itemName": "마법 무효화의 망토",
+    "itemDescription": "착용하면 마법 저항력이 증가할것 같은 망토이다.\n실제로는 증가하지 않는다.",
+    "itemImagePath": "Image/ItemImage/90007",
+    "maxSlotCount": 200,
+    "price": 450
+}

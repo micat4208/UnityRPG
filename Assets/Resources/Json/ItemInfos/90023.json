@@ -1,0 +1,9 @@
+{
+    "itemCode": "90023",
+    "itemType": 0,
+    "itemName": "사과",
+    "itemDescription": "혁신",
+    "itemImagePath": "Image/ItemImage/90023",
+    "maxSlotCount": 200,
+    "price": 10
+}

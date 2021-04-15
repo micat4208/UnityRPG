@@ -1,0 +1,9 @@
+{
+    "itemCode": "90021",
+    "itemType": 0,
+    "itemName": "체력 물약",
+    "itemDescription": "체력을 회복한다.",
+    "itemImagePath": "Image/ItemImage/90021",
+    "maxSlotCount": 200,
+    "price": 10
+}

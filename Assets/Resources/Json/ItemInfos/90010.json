@@ -1,0 +1,9 @@
+{
+    "itemCode": "90010",
+    "itemType": 0,
+    "itemName": "누군가의 장갑",
+    "itemDescription": "누군가의 장갑이다.\n주인은 알수 없다.",
+    "itemImagePath": "Image/ItemImage/90010",
+    "maxSlotCount": 200,
+    "price": 960
+}

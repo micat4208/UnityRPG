@@ -1,0 +1,9 @@
+{
+    "itemCode": "90005",
+    "itemType": 0,
+    "itemName": "장화",
+    "itemDescription": "세상에서 가장 많이 팔린 신발이다.",
+    "itemImagePath": "Image/ItemImage/90005",
+    "maxSlotCount": 200,
+    "price": 300
+}

@@ -8,6 +8,7 @@ public sealed class PlayerInventoryWnd : ClosableWnd
 
 	private PlayerInventoryItemSlot _Panel_PlayerInventoryItemSlotPrefab;
 
+
 	protected override void Awake()
 	{
 		base.Awake();
@@ -29,7 +30,10 @@ public sealed class PlayerInventoryWnd : ClosableWnd
 		for (int i = 0; i < playerCharacterInfo.inventorySlotCount; ++i)
 		{
 			var newItemSlot = CreateItemSlot();
-			newItemSlot.InitializeInventoryItemSlot(i);
+			newItemSlot.InitializeInventoryItemSlot(
+				SlotType.InventorySlot,
+				playerCharacterInfo.inventoryItemInfos[i].itemCode, 
+				i);
 		}
 	}
 
