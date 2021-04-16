@@ -35,6 +35,9 @@ public sealed class PlayerInventoryWnd : ClosableWnd
 				playerCharacterInfo.inventoryItemInfos[i].itemCode, 
 				i);
 		}
+
+		// 창이 닫힐 때 드래그 드랍 작업을 끝냅니다.
+		onWndClosedEvent += () => m_ScreenInstance.FinishDragDropOperation();
 	}
 
 	private PlayerInventoryItemSlot CreateItemSlot() =>
