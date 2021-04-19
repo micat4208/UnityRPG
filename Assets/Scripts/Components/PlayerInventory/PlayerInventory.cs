@@ -46,4 +46,24 @@ public sealed class PlayerInventory : MonoBehaviour
 			screenInstance.CloseWnd(playerInventoryWnd);
 	}
 
+	// 인벤토리 아이템을 교체합니다.
+	public void SwapItem(PlayerInventoryItemSlot first, PlayerInventoryItemSlot second)
+	{
+		ref PlayerCharacterInfo playerInfo = 
+			ref (PlayerManager.Instance.playerController as GamePlayerController).playerCharacterInfo;
+
+		// 소지 아이템 정보 변경
+		var tempItemInfo = playerInfo.inventoryItemInfos[first.itemSlotIndex];
+		playerInfo.inventoryItemInfos[first.itemSlotIndex] = playerInfo.inventoryItemInfos[second.itemSlotIndex];
+		playerInfo.inventoryItemInfos[second.itemSlotIndex] = tempItemInfo;
+
+		// 슬롯 아이템 정보 변경
+		first.SetItemInfo(playerInfo.inventoryItemInfos[first.itemSlotIndex].itemCode);
+		second.SetItemInfo(playerInfo.inventoryItemInfos[second.itemSlotIndex].itemCode);
+
+		// 슬롯 갱신
+		first.UpdateInventoryItemSlot();
+		second.UpdateInventoryItemSlot();
+	}
+
 }

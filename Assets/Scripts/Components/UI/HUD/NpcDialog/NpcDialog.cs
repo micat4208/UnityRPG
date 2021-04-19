@@ -17,6 +17,9 @@ public sealed class NpcDialog : MonoBehaviour
 	[Header("Dialog")]
 	[SerializeField] private TextMeshProUGUI _TMP_DialogText;
 
+	private static NpcShopWnd _NpcShopWndPrefab;
+	private NpcShopWnd _NpcShopWnd;
+
 	private Npc _OwnerNpc;
 	private ContentSizeFitter _TMP_NpcNameContentSizeFitter;
 
@@ -36,6 +39,13 @@ public sealed class NpcDialog : MonoBehaviour
 
 	private void Awake()
 	{
+		if (!_NpcShopWndPrefab)
+		{
+			_NpcShopWndPrefab = ResourceManager.Instance.LoadResource<GameObject>(
+				"Wnd_NpcShop",
+				"Prefabs/UI/ClosableWnd/NpcShopWnd/Wnd_NpcShop").GetComponent<NpcShopWnd>();
+		}
+
 		_TMP_NpcNameContentSizeFitter = _TMP_NpcName.GetComponent<ContentSizeFitter>();
 
 		BindButtonEvents();
@@ -48,11 +58,28 @@ public sealed class NpcDialog : MonoBehaviour
 		_Button_Shop.onClick.AddListener(
 			() =>
 			{
+				// 상점이 열려있다면 실행하지 않습니다.
+				if (_NpcShopWnd) return;
+
+				// 상점 창을 엽니다.
 				var gameScreenInstance = (PlayerManager.Instance.playerController.screenInstance as GameScreenInstance);
-				gameScreenInstance.CreateWnd(
-					ResourceManager.Instance.LoadResource<GameObject>(
-						"",
-						"Prefabs/UI/ClosableWnd/ClosableWnd").GetComponent<ClosableWndBase>());
+				_NpcShopWnd = gameScreenInstance.CreateWnd(_NpcShopWndPrefab) as NpcShopWnd;
+
+				// 상점 정보를 읽습니다.
+				bool fileNotFound;
+				ShopInfo shopInfo = ResourceManager.Instance.LoadJson<ShopInfo>(
+						"ShopInfos", $"{_OwnerNpc.npcInfo.shopCode}.json", out fileNotFound);
+
+				// 정상적으로 읽어왔다면
+				if (!fileNotFound)
+				{
+					// 상점 창 초기화
+					_NpcShopWnd.InitializeNpcShop(shopInfo);
+				}
+
+				// 창점 창이 닫힐 때 _NpcShopWnd 를 null 로 설정합니다.
+				_NpcShopWnd.onWndClosedEvent += () =>
+					_NpcShopWnd = null;
 			});
 
 		_Button_Close.onClick.AddListener(
