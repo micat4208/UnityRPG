@@ -684,6 +684,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d937f0848ba679428c3f4ea941723bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ShopItemSlot: {fileID: 7605397814134297768}
   _TMP_ItemName: {fileID: 5843993119881350344}
   _TMP_Price: {fileID: 2035474050893158295}
 --- !u!1001 &1013809740476646600
@@ -846,3 +847,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1013809740476646600}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7605397814134297768 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7465292054649688160, guid: 448c76457c4475e4582e6b94eb572acc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1013809740476646600}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 925afc24b8206f142b129775bf09af2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

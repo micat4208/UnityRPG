@@ -9,10 +9,14 @@ public struct PlayerCharacterInfo
 	// 소지중인 아이템 정보
 	public List<ItemSlotInfo> inventoryItemInfos;
 
+	// 소지금
+	public int silver;
+
 
 	public void Initialize()
 	{
 		inventorySlotCount = 50;
+		silver = 10000;
 
 		inventoryItemInfos = new List<ItemSlotInfo>();
 		for (int i = 0; i < inventorySlotCount; ++i)
