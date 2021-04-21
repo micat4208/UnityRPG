@@ -43,7 +43,7 @@ public sealed class PlayerInventory : MonoBehaviour
 		if (playerInventoryWnd == null) return;
 
 		PlayerManager.Instance.playerController.
-			screenInstance.CloseWnd(playerInventoryWnd);
+			screenInstance.CloseWnd(false, playerInventoryWnd);
 	}
 
 	// 인벤토리 아이템을 교체합니다.

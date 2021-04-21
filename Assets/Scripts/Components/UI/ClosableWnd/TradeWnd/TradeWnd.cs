@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 
 
-public sealed class TradeWnd : ClosableWnd
+public sealed class TradeWnd:ClosableWnd
 {
 	[SerializeField] private TextMeshProUGUI _TMP_ItemCost;
 	[SerializeField] private TMP_InputField _InputField_TradeCount;
@@ -16,6 +16,9 @@ public sealed class TradeWnd : ClosableWnd
 
 	[SerializeField] private TextMeshProUGUI _TMP_Trade;
 
+	// 교환 버튼이 클릭되었을 경우 발생하는 이벤트입니다.
+	public event System.Action<TradeWnd> onTradeButtonClicked;
+
 	// 판매자를 나타냅니다.
 	private TradeSeller _TradeSeller;
 
@@ -24,6 +27,28 @@ public sealed class TradeWnd : ClosableWnd
 
 	// 함께 사용된 슬롯 객체를 나타냅니다.
 	private ItemSlot _ConnectedItemSlot;
+
+	// 입력된 텍스트가 비어있는지 확인합니다.
+	public bool isInputTextEmpty => string.IsNullOrEmpty(_InputField_TradeCount.text);
+
+	// 입력된 텍스트의 내용을 숫자로 얻습니다.
+	public int inputTradeCount
+	{
+		get 
+		{
+			if (string.IsNullOrEmpty(_InputField_TradeCount.text)) return -1;
+
+			try
+			{
+				return int.Parse(_InputField_TradeCount.text);
+			}
+			catch (System.StackOverflowException)
+			{ return -1; }
+			catch (System.FormatException)
+			{ return -1; }
+		}
+	}
+
 
 	// 교환 창을 초기화합니다.
 	/// - tradeSeller : 창을 띄운 판매자 타입을 전달합니다.
@@ -64,29 +89,17 @@ public sealed class TradeWnd : ClosableWnd
 		// _InputField_TradeCount 의 내용이 변경되었을 경우 호출할 메서드 바인딩
 		_InputField_TradeCount.onValueChanged.AddListener(OnTradeCountChanged);
 
+		// 버튼 이벤트 설정
+		_Button_Trade.onClick.AddListener(() => onTradeButtonClicked?.Invoke(this));
+		_Button_TradeCancel.onClick.AddListener(CloseThisWnd);
+
 	}
 
 	// _InputField_TradeCount 의 내용이 변경되었을 경우 호출되는 메서드
 	private void OnTradeCountChanged(string text)
 	{
-		// 입력된 문자열을 숫자로 반환하는 내부 함수
-		int GetInputTextToInt()
-		{
-			if (string.IsNullOrEmpty(text)) return -1;
-
-			try
-			{
-				return int.Parse(text);
-			}
-			catch(System.StackOverflowException)
-			{ return -1; }
-			catch(System.FormatException)
-			{ return -1; }
-		}
-
-
 		// 입력된 개수
-		int tradeCount = GetInputTextToInt();
+		int tradeCount = inputTradeCount;
 
 		// 입력된 값이 음수라면
 		if (tradeCount < 0)

@@ -20,6 +20,13 @@ public enum TradeSeller
 	Player
 }
 
+// 메시지 박스에 사용되는 버튼을 나타내기 위한 열거 형식
+public enum MessageBoxButton : byte
+{
+	Ok     = 0b0001, 
+	Cancel = 0b0010
+}
+
 
 // 슬롯의 타입을 나타내기 위해 사용되는 열거 형식입니다.
 public enum SlotType

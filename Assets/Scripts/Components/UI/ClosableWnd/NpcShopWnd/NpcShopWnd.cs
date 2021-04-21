@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public sealed class NpcShopWnd : ClosableWnd
 {
 	[SerializeField] private RectTransform _Panel_ShopItems;
+	[SerializeField] private Button _Button_OpenInventory;
 
 	private static ShopItem _Button_ShopItemPrefab;
 	private static TradeWnd _Wnd_TradePrefab;
@@ -31,6 +33,9 @@ public sealed class NpcShopWnd : ClosableWnd
 				"Wnd_Trade",
 				"Prefabs/UI/ClosableWnd/TradeWnd/Wnd_Trade").GetComponent<TradeWnd>();
 		}
+
+		// 버튼 이벤트 설정
+		_Button_OpenInventory.onClick.AddListener(FloatingInventory);
 	}
 
 	// Npc 상점 창을 초기화합니다.
@@ -51,6 +56,9 @@ public sealed class NpcShopWnd : ClosableWnd
 			// 판매하는 아이템 UI 를 초기화합니다.
 			newShopItem.InitializeShopItem(this, shopItemInfo);
 		}
+
+		// 인벤토리 창을 띄웁니다.
+		FloatingInventory();
 	}
 
 	// 아이템 교환 창을 전달합니다.
@@ -80,5 +88,36 @@ public sealed class NpcShopWnd : ClosableWnd
 
 		// 생성된 교환 창 객체를 반환합니다.
 		return _Wnd_Trade;
+	}
+
+	// 인벤토리 창을 상점 창 우측에 띄웁니다.
+	public void FloatingInventory()
+	{
+		GamePlayerController gamePlayerController = (PlayerManager.Instance.playerController as GamePlayerController);
+
+		// 인벤토리 창을 띄웁니다.
+		gamePlayerController.playerInventory.OpenInventoryWnd(usePrevPosition : false);
+
+		// 띄운 인벤토리 창을 얻습니다.
+		PlayerInventoryWnd inventoryWnd = gamePlayerController.playerInventory.playerInventoryWnd;
+
+		// 상점 창의 절반 사이즈를 얻습니다.
+		Vector2 shopWndHalfSize = rectTransform.sizeDelta * 0.5f;
+
+		// 띄운 인벤토리 창의 절반 크기를 얻습니다.
+		Vector2 inventoryWndHalfSize = inventoryWnd.rectTransform.sizeDelta * 0.5f;
+
+		// 인벤토리 창의 위치를 계산합니다.
+		Vector2 newInventoryWndPosition =
+			rectTransform.anchoredPosition + ((shopWndHalfSize + inventoryWndHalfSize) * Vector2.right);
+
+		// 이벤토리 창의 Y 위치를 설정합니다.
+		newInventoryWndPosition.y += inventoryWndHalfSize.y - shopWndHalfSize.y;
+
+		// 인벤토리 창의 위치를 설정합니다.
+		inventoryWnd.rectTransform.anchoredPosition = newInventoryWndPosition;
+
+
+
 	}
 }

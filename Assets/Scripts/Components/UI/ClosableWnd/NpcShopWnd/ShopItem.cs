@@ -56,5 +56,24 @@ public sealed class ShopItem : MonoBehaviour,
 
 		// 만약 교환 창이 열려있거나, 교환하려는 아이템이 비어있다면 실행하지 않습니다.
 		if (!tradeWnd) return;
+
+		tradeWnd.onTradeButtonClicked += (wnd) =>
+		{
+			// 입력 값이 잘못 되었을 경우
+			if (wnd.isInputTextEmpty || wnd.inputTradeCount <= 0)
+			{
+				// 메시지 박스 생성
+				MessageBoxWnd msgBox = (wnd.m_ScreenInstance as ScreenInstanceBase).CreateMessageBox(
+					titleText: "입력 확인",
+					message: "입력된 내용이 잘못 되었습니다.",
+					useBackground: true,
+					useButton: MessageBoxButton.Ok);
+
+				// Ok 버튼 클릭 이벤트 설정
+				msgBox.onOkButtonClicked += (screenInstance, msgBoxWnd) =>
+					msgBoxWnd.CloseThisWnd();
+				return;
+			}
+		};
 	}
 }
