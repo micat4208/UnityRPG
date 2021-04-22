@@ -9,20 +9,9 @@ public sealed class PlayerInventoryItemSlot : ItemSlot
 
 	public int itemSlotIndex => _ItemSlotIndex;
 
-	// 인벤토리 아이템 슬롯을 초기화합니다.
-	public void InitializeInventoryItemSlot(
-		SlotType slotType, 
-		string itemCode, 
-		int itemSlotIndex)
+	protected override void Awake()
 	{
-		// 슬롯 초기화
-		base.InitializeSlot(slotType, itemCode);
-
-		// 인덱스 설정
-		_ItemSlotIndex = itemSlotIndex;
-
-		// 아이템 개수 텍스트 갱신
-		UpdateItemCountText();
+		base.Awake();
 
 		// 드래그 드랍 사용
 		m_UseDragDrop = true;
@@ -70,6 +59,23 @@ public sealed class PlayerInventoryItemSlot : ItemSlot
 				}
 			};
 		};
+
+	}
+
+	// 인벤토리 아이템 슬롯을 초기화합니다.
+	public void InitializeInventoryItemSlot(
+		SlotType slotType, 
+		string itemCode, 
+		int itemSlotIndex)
+	{
+		// 슬롯 초기화
+		base.InitializeSlot(slotType, itemCode);
+
+		// 인덱스 설정
+		_ItemSlotIndex = itemSlotIndex;
+
+		// 아이템 개수 텍스트 갱신
+		UpdateItemCountText();
 
 
 	}

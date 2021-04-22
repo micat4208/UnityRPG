@@ -49,6 +49,8 @@ public sealed class TradeWnd:ClosableWnd
 		}
 	}
 
+	public ItemSlot connectedItemSlot => _ConnectedItemSlot;
+	public ShopItemInfo? shopitemInfo => _ShopItemInfo;
 
 	// 교환 창을 초기화합니다.
 	/// - tradeSeller : 창을 띄운 판매자 타입을 전달합니다.

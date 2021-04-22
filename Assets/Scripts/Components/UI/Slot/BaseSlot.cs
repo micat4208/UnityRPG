@@ -11,7 +11,8 @@ public class BaseSlot :
 	IDragHandler, 
 	IEndDragHandler, 
 	IPointerEnterHandler, 
-	IPointerExitHandler
+	IPointerExitHandler,
+	IPointerClickHandler
 {
 	[SerializeField] private TextMeshProUGUI _TMP_Count;
 	[SerializeField] private Image _Image_Slot;
@@ -36,7 +37,8 @@ public class BaseSlot :
 	/// - DragDropOperation : 드래그 드랍 작업 객체가 전달됩니다.
 	/// - SlotDragVisual : 드래그 비쥬얼 객체가 전달됩니다.
 
-
+	// 슬롯 우클릭 시 발생하는 이벤트
+	public event System.Action onSlotRightClicked;
 	// 슬롯 드래그 시작 시 발생하는 이벤트
 	public event System.Action onSlotDragStarted;
 	// 슬롯 드래그 드랍 시 발생하는 이벤트
@@ -143,5 +145,11 @@ public class BaseSlot :
 		//Debug.Log("OnPointerExit!");
 		// UI 영역 겹침 끝
 		m_ScreenInstance.dragDropOperation?.OnPointerExit(this);
+	}
+
+	void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
+	{
+		if (eventData.button == PointerEventData.InputButton.Right)
+			onSlotRightClicked?.Invoke();
 	}
 }

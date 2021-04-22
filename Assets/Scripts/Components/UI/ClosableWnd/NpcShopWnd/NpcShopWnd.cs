@@ -117,6 +117,71 @@ public sealed class NpcShopWnd : ClosableWnd
 		// 인벤토리 창의 위치를 설정합니다.
 		inventoryWnd.rectTransform.anchoredPosition = newInventoryWndPosition;
 
+		// 인벤토리 아이템 슬롯 우클릭 시 아이템 판매가 이루어질 수 있도록 합니다.
+		foreach (var playerInventoryItemSlot in inventoryWnd.itemSlots)
+			playerInventoryItemSlot.onSlotRightClicked += () =>
+				SaleItem(inventoryWnd, playerInventoryItemSlot);
+	}
+
+	// 아이템을 판매합니다.
+	public void SaleItem(PlayerInventoryWnd playerInventoryWnd, ItemSlot itemSlot)
+	{
+		// 교환 창을 생성합니다.
+		var tradeWnd = CreateTradeWnd(TradeSeller.Player, itemSlot);
+		if (!tradeWnd) return;
+
+		tradeWnd.onTradeButtonClicked += (tradeWindow) =>
+		{
+			PlayerInventoryItemSlot inventoryItemSlot = itemSlot as PlayerInventoryItemSlot;
+			int inputCount = tradeWnd.inputTradeCount;
+			int itemPrice = tradeWnd.connectedItemSlot.itemInfo.price * inputCount;
+
+			MessageBoxWnd msgBox = null;
+
+			// 입력 값이 잘못 되었을 경우
+			if (tradeWnd.isInputTextEmpty || tradeWnd.inputTradeCount == 0)
+			{
+				msgBox = (m_ScreenInstance as ScreenInstanceBase).CreateMessageBox(
+					titleText:		"입력 확인",
+					message:		"입력된 내용이 잘못 되었습니다.",
+					useBackground:	true,
+					useButton:		MessageBoxButton.Ok);
+
+				msgBox.onOkButtonClicked += (screenInst, mb) => msgBox.CloseThisWnd();
+
+				return;
+			}
+
+			// 아이템 판매
+			string itemName = tradeWnd.connectedItemSlot.itemInfo.itemName;
+			msgBox = (m_ScreenInstance as ScreenInstanceBase).CreateMessageBox(
+					titleText:		"아이템 판매 확인",
+					message:		$"{itemName} 을(를) {inputCount} 개 판매합니다.",
+					useBackground:	true,
+					/*useButton:*/	MessageBoxButton.Ok, MessageBoxButton.Cancel);
+
+			msgBox.onOkButtonClicked += (screenInst, mb) =>
+			{
+				GamePlayerController gamePlayerController = (PlayerManager.Instance.playerController as GamePlayerController);
+				ref PlayerCharacterInfo playerInfo = ref gamePlayerController.playerCharacterInfo;
+
+				// 아이템 제거
+				gamePlayerController.playerInventory.RemoveItem(inventoryItemSlot.itemSlotIndex, inputCount);
+
+				// 은화 획득
+				playerInfo.silver += itemPrice;
+				playerInventoryWnd.UpdateSilver();
+
+
+				// 교환 창 닫기
+				tradeWnd.CloseThisWnd();
+
+				// 메시지 박스 닫기
+				msgBox.CloseThisWnd();
+			};
+
+			msgBox.onCancelButtonClicked += (screenInst, mb) => msgBox.CloseThisWnd();
+		};
 
 
 	}

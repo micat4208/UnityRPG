@@ -2,6 +2,7 @@
 
 public class PlayerController : PlayerControllerBase
 {
+	[UnityEngine.SerializeField]
 	private PlayerCharacterInfo _PlayerCharacterInfo;
 	public ref PlayerCharacterInfo playerCharacterInfo => ref _PlayerCharacterInfo;
 
