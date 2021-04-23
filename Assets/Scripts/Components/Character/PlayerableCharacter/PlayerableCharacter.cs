@@ -8,6 +8,7 @@ using UnityStartUpFramework.Enums;
 [RequireComponent(typeof(PlayerInteract))]
 public sealed class PlayerableCharacter : PlayerableCharacterBase
 {
+
 	[SerializeField] private SpringArm _SpringArm;
 
 	public CharacterController characterController { get; private set; }

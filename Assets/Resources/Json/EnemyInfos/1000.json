@@ -1,0 +1,1 @@
+{"enemyCode":"1000","enemyName":"슬라임","capsuleHeight":2.0,"capsuleRadius":0.5,"enemyMeshPath":"Prefabs/Character/UsedEnemyMesh/1000","maxMoveSpeed":3.0,"useBehaviorNames":["AIBHMoveTo"]}

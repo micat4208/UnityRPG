@@ -133,6 +133,8 @@ public sealed class ShopItem : MonoBehaviour,
 				// 메시지 박스 닫기
 				msgBox.CloseThisWnd();
 			};
+
+			msgBox.onCancelButtonClicked += (screenInstance, messageBoxWnd) => msgBox.CloseThisWnd();
 		};
 	}
 }

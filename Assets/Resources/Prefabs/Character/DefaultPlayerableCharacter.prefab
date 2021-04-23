@@ -77,7 +77,7 @@ MonoBehaviour:
   _MaxYVelocity: 10
   _IgnoreGroundLayers:
     serializedVersion: 2
-    m_Bits: 2147484672
+    m_Bits: 2147486720
 --- !u!114 &6349439651562755701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,7 +295,7 @@ MonoBehaviour:
   _RemoveAllCameraObject: 1
   _LayerToIgnore:
     serializedVersion: 2
-    m_Bits: 2147484672
+    m_Bits: 2147486720
 --- !u!1001 &527817163920840585
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -52,9 +52,19 @@ public sealed class PlayerInventoryItemSlot : ItemSlot
 
 						slotImage.color = new Color(1.0f, 1.0f, 1.0f);
 
+						GamePlayerController playerController = (PlayerManager.Instance.playerController as GamePlayerController);
+						ref PlayerCharacterInfo playerInfo = ref playerController.playerCharacterInfo;
+
+						// 드래그를 시작시킨 슬롯과 드랍을 시킨 위치의 슬롯에 담긴 아이템이 동일한 아이템을 담고 있는지를 나타냅니다.
+						bool isSameItem =
+							playerInfo.inventoryItemInfos[inventoryItemSlot.itemSlotIndex] ==
+							playerInfo.inventoryItemInfos[itemSlotIndex];
+
+						// 동일한 아이템이라면 아이템을 서로 합칩니다.
+						if (isSameItem)
+							playerController.playerInventory.MergeItem(this, inventoryItemSlot);
 						// 아이템 스왑
-						(PlayerManager.Instance.playerController as GamePlayerController).playerInventory.SwapItem(
-							this, inventoryItemSlot);
+						else playerController.playerInventory.SwapItem(this, inventoryItemSlot);
 					}
 				}
 			};
