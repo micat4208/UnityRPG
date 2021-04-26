@@ -1,0 +1,30 @@
+{
+    "itemCode": "001210",
+    "minimumEquipLevel": 20,
+    "EquipableClass": 1,
+    "partsType": 5,
+    "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "localEulerAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "hideHairWhenEquipped": true,
+    "useHalfHair": false,
+    "meshPrefabPath": "Character/Male Knight Pack 01 Cute Series/01 Customize Character Here/02 Attach Weapons and Accessories/Head Dress (+ Head )/Helmet Protector Aqua",
+    "meterialPath": "Character/Materials/Fair Nature",
+    "halfHairPrefabPath": "",
+    "additionalArmor": 0.0,
+    "additionalMagicResistance": 0.0,
+    "additionalPhysicalDamage": 0.0,
+    "additionalMagicalDamage": 0.0,
+    "additionalMoveSpeed": 0.0,
+    "additionalJumpHeight": 0.0,
+    "additionalHp": 0.0,
+    "additionalMp": 0.0,
+    "additionalCriticalPercentage": 0.0
+}

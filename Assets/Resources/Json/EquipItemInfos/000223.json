@@ -1,0 +1,30 @@
+{
+    "itemCode": "000223",
+    "minimumEquipLevel": 55,
+    "EquipableClass": 1,
+    "partsType": 3,
+    "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "localEulerAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "hideHairWhenEquipped": false,
+    "useHalfHair": false,
+    "meshPrefabPath": "Character/Male Knight Pack 01 Cute Series/01 Customize Character Here/02 Attach Weapons and Accessories/Body/Body03",
+    "meterialPath": "Character/Materials/Fair Dark",
+    "halfHairPrefabPath": "",
+    "additionalArmor": 0.0,
+    "additionalMagicResistance": 0.0,
+    "additionalPhysicalDamage": 0.0,
+    "additionalMagicalDamage": 0.0,
+    "additionalMoveSpeed": 0.0,
+    "additionalJumpHeight": 0.0,
+    "additionalHp": 0.0,
+    "additionalMp": 0.0,
+    "additionalCriticalPercentage": 0.0
+}

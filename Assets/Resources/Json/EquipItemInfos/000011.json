@@ -1,0 +1,30 @@
+{
+    "itemCode": "000011",
+    "minimumEquipLevel": 0,
+    "EquipableClass": 0,
+    "partsType": 0,
+    "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "localEulerAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "hideHairWhenEquipped": false,
+    "useHalfHair": false,
+    "meshPrefabPath": "Character/Female Mage Pack 01 Cute Series/01 Customize Character Here/02 Attach Weapons and Accessories/Standard Faces (+ Head)/Female Face 02 Brown",
+    "meterialPath": "Character/Materials/Face Female 02 Brown",
+    "halfHairPrefabPath": "",
+    "additionalArmor": 0.0,
+    "additionalMagicResistance": 0.0,
+    "additionalPhysicalDamage": 0.0,
+    "additionalMagicalDamage": 0.0,
+    "additionalMoveSpeed": 0.0,
+    "additionalJumpHeight": 0.0,
+    "additionalHp": 0.0,
+    "additionalMp": 0.0,
+    "additionalCriticalPercentage": 0.0
+}

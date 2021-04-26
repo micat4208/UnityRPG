@@ -27,12 +27,27 @@ public enum MessageBoxButton : byte
 	Cancel = 0b0010
 }
 
-
 // 슬롯의 타입을 나타내기 위해 사용되는 열거 형식입니다.
 public enum SlotType
 { 
 	ShopItemSlot,
 	InventorySlot
 }
+
+// 장비 아이템 장착 부위를 나타내기 위한 열거 형식입니다.
+public enum PartsType
+{ 
+	Face,
+	Hair,
+	Head,
+	Body,
+
+	Helmet,
+	Backpack,
+
+	LeftWeapon,
+	RightWeapon
+}
+
 
 

@@ -14,6 +14,7 @@ public sealed class PlayerableCharacter : PlayerableCharacterBase
 	public CharacterController characterController { get; private set; }
 	public PlayerCharacterMovement movement { get; private set; }
 	public PlayerInteract playerInteract { get; private set; }
+	public PlayerCharacterAnimController animController { get; private set; }
 
 	public SpringArm springArm => _SpringArm;
 
@@ -23,6 +24,7 @@ public sealed class PlayerableCharacter : PlayerableCharacterBase
 		characterController = GetComponent<CharacterController>();
 		movement = GetComponent<PlayerCharacterMovement>();
 		playerInteract = GetComponent<PlayerInteract>();
+		animController = GetComponent<PlayerCharacterAnimController>();
 
 		idCollider = characterController;
 	}

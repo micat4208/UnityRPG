@@ -3,6 +3,9 @@
 [System.Serializable]
 public struct PlayerCharacterInfo
 {
+	// 현재 장착중인 아이템 정보
+	public List<EquipItemInfo> partsInfo;
+
 	// 인벤토리 슬롯 개수
 	public int inventorySlotCount;
 
@@ -26,6 +29,15 @@ public struct PlayerCharacterInfo
 		inventoryItemInfos[6] = new ItemSlotInfo("90004", 4, 10);
 		inventoryItemInfos[9] = new ItemSlotInfo("90000", 5, 10);
 		inventoryItemInfos[12] = new ItemSlotInfo("90005", 6, 10);
+
+
+
+		partsInfo = new List<EquipItemInfo>();
+
+		bool fileNotFound;
+		partsInfo.Add(ResourceManager.Instance.LoadJson<EquipItemInfo>("EquipItemInfos", $"000200.json", out fileNotFound));
+		partsInfo.Add(ResourceManager.Instance.LoadJson<EquipItemInfo>("EquipItemInfos", $"000020.json", out fileNotFound));
+		partsInfo.Add(ResourceManager.Instance.LoadJson<EquipItemInfo>("EquipItemInfos", $"000040.json", out fileNotFound));
 
 
 	}
