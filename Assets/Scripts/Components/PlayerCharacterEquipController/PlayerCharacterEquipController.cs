@@ -60,8 +60,8 @@ public sealed class PlayerCharacterEquipController : MonoBehaviour
 	{
 		// Body 오브젝트가 장착된다면 모든 파츠의 부모 오브젝트가 변경되며
 		// 이때 Socket 들을 새로 갱신해야 하기 때문에 모든 요소를 비웁니다.
-		if (_PartsObject.Count != 0)
-			_PartsObject.Clear();
+		if (_PartsSockets.Count != 0)
+			_PartsSockets.Clear();
 
 		// 각 파츠의 부모 오브젝트로 사용될 오브젝트의 이름을 저장합니다.
 		List<(PartsType partsType, string name)> partsDataToFind = new List<(PartsType, string)>();
@@ -110,6 +110,8 @@ public sealed class PlayerCharacterEquipController : MonoBehaviour
 			// 자식 오브젝트의 이름이 찾고자 하는 부모 오브젝트와 일치하는지 확인합니다.
 			if (childTransform.gameObject.name == name)
 			{
+				Debug.Log($"partsType = {partsType}");
+				Debug.Log($"childTransform = {childTransform}");
 				_PartsSockets.Add(partsType, childTransform);
 				break;
 			}
@@ -123,6 +125,9 @@ public sealed class PlayerCharacterEquipController : MonoBehaviour
 	/// - newEquipItemInfo : 장착시킬 장비 아이템 정보를 전달합니다.
 	private void EquipMesh(EquipItemInfo newEquipItemInfo)
 	{
+
+		Debug.Log($"newEquipItemInfo.partsType = {newEquipItemInfo.partsType}");
+
 		ref var playerInfo = ref (PlayerManager.Instance.playerController as PlayerController).playerCharacterInfo;
 
 		// 바디 파츠가 장착된 경우
@@ -241,6 +246,16 @@ public sealed class PlayerCharacterEquipController : MonoBehaviour
 					_PartsObject[PartsType.Hair] = Instantiate(
 						ResourceManager.Instance.LoadResource<GameObject>(
 							playerInfo.partsInfo[halfHairIndex].halfHairPrefabPath));
+				}
+				// Hair 파츠를 숨겨야 한다면
+				else if (newEquipItemInfo.hideHairWhenEquipped)
+				{
+					// 사용중인 Hair 파츠 오브젝트가 존재한다면
+					if (_PartsObject[PartsType.Hair] != null)
+					{
+						// 오브젝트를 비활성화 시킵니다.
+						_PartsObject[PartsType.Hair].SetActive(false);
+					}
 				}
 
 			}
