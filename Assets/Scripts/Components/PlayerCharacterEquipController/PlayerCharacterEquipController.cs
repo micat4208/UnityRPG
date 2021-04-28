@@ -26,6 +26,7 @@ public sealed class PlayerCharacterEquipController : MonoBehaviour
 	// 플레이어 캐릭터 객체
 	private PlayerableCharacter _PlayerCharacter;
 
+	public Dictionary<PartsType, GameObject> partsObject => _PartsObject;
 
 	private void Start()
 	{

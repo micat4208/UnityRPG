@@ -25,5 +25,8 @@ public struct SkillInfo
 	public float coolTime;
 
 	// 같은 스킬을 연계할 경우 콤보에 따라 재생시킬 애니메이션 이름을 나타냅니다.
-	public string[] LinkableSkillAnimationName;
+	public string[] linkableSkillAnimationName;
+
+	// 같은 스킬을 연계할 때의 쌓을 수 있는 최대 콤보 카운트를 나타냅니다.
+	public int maxComboCount => linkableSkillAnimationName.Length;
 }

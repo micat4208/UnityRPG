@@ -149,6 +149,10 @@ MonoBehaviour:
     key: 9
     game: 1
     ui: 1
+  - actionName: RegularAttack
+    key: 323
+    game: 1
+    ui: 0
   _AxisInput:
   - axisName: Horizontal
     lowKey: 97

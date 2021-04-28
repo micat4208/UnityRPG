@@ -435,7 +435,7 @@ MonoBehaviour:
     skillIconImagePath: Image/SkillImage/T_SKILL_1000
     useCoolTime: 0
     coolTime: 0
-    LinkableSkillAnimationName:
+    linkableSkillAnimationName:
     - RegularAttack0
     - RegularAttack1
     - RegularAttack2

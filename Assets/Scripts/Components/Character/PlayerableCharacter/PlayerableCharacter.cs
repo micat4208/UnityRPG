@@ -16,6 +16,7 @@ public sealed class PlayerableCharacter : PlayerableCharacterBase
 	public PlayerInteract playerInteract { get; private set; }
 	public PlayerCharacterAnimController animController { get; private set; }
 	public PlayerSkillController skillController { get; private set; }
+	public PlayerCharacterEquipController equipController { get; private set; }
 
 	public SpringArm springArm => _SpringArm;
 
@@ -27,6 +28,7 @@ public sealed class PlayerableCharacter : PlayerableCharacterBase
 		playerInteract = GetComponent<PlayerInteract>();
 		animController = GetComponent<PlayerCharacterAnimController>();
 		skillController = GetComponent<PlayerSkillController>();
+		equipController = GetComponent<PlayerCharacterEquipController>();
 
 		idCollider = characterController;
 	}
@@ -42,6 +44,8 @@ public sealed class PlayerableCharacter : PlayerableCharacterBase
 			if (InputManager.GetAction("Interact", ActionEvent.Down)) 
 				playerInteract.TryInteraction();
 
+			if (InputManager.GetAction("RegularAttack", ActionEvent.Down))
+				skillController.RequestSkill("1000");
 		}
 
 		base.Update();
