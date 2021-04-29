@@ -48,6 +48,9 @@ public sealed class PlayerCharacterMovement : MonoBehaviour
 
 	// 속도를 나타냅니다.
 	private Vector3 _Velocity;
+
+	// 충격 속도
+	private Vector3 _ImpulseVelocity;
 	#endregion
 
 	#region Jump
@@ -83,7 +86,9 @@ public sealed class PlayerCharacterMovement : MonoBehaviour
 	public bool isGrounded { get; private set; }
 
 	// 이동 가능 상태를 나타냅니다.
-	public bool isMovable { get; private set; } = true;
+	public bool isMovable =>
+		!_PlayerableCharacter.skillController.blockMovement;
+
 
 	// 점프 가능 상태를 나타냅니다.
 	public bool isJumpable =>
@@ -179,7 +184,12 @@ public sealed class PlayerCharacterMovement : MonoBehaviour
 			// 가속률을 연산시킵니다.
 			_Velocity = Vector3.MoveTowards(
 				_Velocity, currentVelocity, _MaxSpeed * 
-				(_OneSecAcceleration * 0.01f * Time.deltaTime) * Time.deltaTime);
+				(_OneSecAcceleration * 0.01f * Time.deltaTime) * Time.deltaTime) + 
+				(_ImpulseVelocity * 0.01f * Time.deltaTime);
+
+			_ImpulseVelocity = Vector3.Lerp(_ImpulseVelocity, Vector3.zero, _OneSecAcceleration * 0.01f * Time.deltaTime);
+			if (_ImpulseVelocity.magnitude < 0.01f) _ImpulseVelocity = Vector3.zero;
+
 
 			// 연산된 속도에 Y 속력을 적용시킵니다.
 			_Velocity.y = currentVelocityY;
@@ -337,6 +347,9 @@ public sealed class PlayerCharacterMovement : MonoBehaviour
 
 	}
 
+	// 충격을 줍니다.
+	public void AddImpulse(Vector3 impulseVelocity) =>
+		_ImpulseVelocity = impulseVelocity;
 
 
 

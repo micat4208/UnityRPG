@@ -16,12 +16,21 @@ public sealed class PlayerSkillController : MonoBehaviour
 	// 실행시킬 스킬 정보를 담아둘 큐
 	private Queue<SkillInfo> _SkillQueue = new Queue<SkillInfo>();
 
+	// 스킬 큐 요소 최대 개수
+	private int _MaxQueueCount = 1;
+
 	// 실행했었던 스킬 상태 정보들을 나타냅니다.
 	private Dictionary<string, SkillProgressInfo> _UsedSkillInfo = new Dictionary<string, SkillProgressInfo>();
 
 	// 스킬을 요청할 수 있는 상태임을 나타냅니다.
 	/// - 이 값이 false 라면 스킬을 요청할 수 없도록 합니다.
 	public bool isRequestable { get; set; } = true;
+
+	// 이동 제한 상태를 나타냅니다.
+	public bool blockMovement { get; set; } = false;
+
+
+
 
 	private void Awake()
 	{
@@ -107,6 +116,9 @@ public sealed class PlayerSkillController : MonoBehaviour
 		// 현재 실행중인 스킬로 설정합니다.
 		_CurrentSkillInfo = skillInfo;
 
+		// 시전시킬 스킬이 이동을 제한하는지 확인합니다.
+		blockMovement = !_CurrentSkillInfo.Value.moveableInCastTime;
+
 		// 스킬실행 후 스킬 요청이 이루어질 수 없도록 합니다.
 		isRequestable = false;
 
@@ -137,6 +149,9 @@ public sealed class PlayerSkillController : MonoBehaviour
 		// 스킬을 요청할 수 없는 상태라면 실행하지 않습니다.
 		if (!isRequestable) return;
 
+		// 스킬이 _MaxQueueCount 개 이상 등록되었다면 추가시키지 않습니다.
+		if (_SkillQueue.Count >= _MaxQueueCount) return;
+
 		// 요청한 스킬 정보를 얻습니다.
 		bool fileNotFound;
 		SkillInfo requestSkillInfo = ResourceManager.Instance.LoadJson<SkillInfo>(
@@ -148,6 +163,8 @@ public sealed class PlayerSkillController : MonoBehaviour
 			Debug.LogError($"skillCode({skillCode}) is not available.");
 			return;
 		}
+
+		if (!requestSkillInfo.castableInAir && !_PlayerableCharacter.movement.isGrounded) return;
 
 		// 요청한 스킬을 큐에 추가합니다.
 		_SkillQueue.Enqueue(requestSkillInfo);
@@ -161,6 +178,9 @@ public sealed class PlayerSkillController : MonoBehaviour
 
 		// 스킬 요청 가능 상태로 설정합니다.
 		isRequestable = true;
+
+		// 이동 제한을 해제합니다.
+		blockMovement = false;
 
 		_PlayerableCharacter.animController.controlledAnimator?.CrossFade("BT_MoveGround", 0.2f);
 

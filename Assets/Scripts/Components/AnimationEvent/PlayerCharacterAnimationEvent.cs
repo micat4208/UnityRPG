@@ -24,6 +24,8 @@ public sealed class PlayerCharacterAnimationEvent : MonoBehaviour
 	private void AnimEvent_BlockSkillRequestable() =>
 		_PlayerableCharacter.skillController.isRequestable = false;
 
-
+	private void AnimEvent_AddImpulseForward(float power) =>
+		_PlayerableCharacter.movement.AddImpulse(
+			_PlayerableCharacter.transform.forward * power);
 
 }

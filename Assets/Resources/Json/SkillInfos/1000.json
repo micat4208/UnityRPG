@@ -1,1 +1,1 @@
-{"skillCode":"1000","skillName":"베기","skillDescription":"최대 3번 적을 벤다","skillIconImagePath":"Image/SkillImage/T_SKILL_1000","useCoolTime":false,"coolTime":0.0,"linkableSkillAnimationName":["RegularAttack0","RegularAttack1","RegularAttack2"]}
+{"skillCode":"1000","skillName":"베기","skillDescription":"최대 3번 적을 벤다","skillIconImagePath":"Image/SkillImage/T_SKILL_1000","useCoolTime":false,"coolTime":0.0,"moveableInCastTime":false,"castableInAir":false,"linkableSkillAnimationName":["RegularAttack0","RegularAttack1","RegularAttack2"]}

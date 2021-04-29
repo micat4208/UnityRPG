@@ -435,10 +435,34 @@ MonoBehaviour:
     skillIconImagePath: Image/SkillImage/T_SKILL_1000
     useCoolTime: 0
     coolTime: 0
+    moveableInCastTime: 0
+    castableInAir: 0
     linkableSkillAnimationName:
     - RegularAttack0
     - RegularAttack1
     - RegularAttack2
+    skillRangeInfos:
+    - useSphereCast: 1
+      castStartOffset: {x: 0, y: 0, z: -1.5}
+      castDirection: {x: 0, y: 0, z: 1}
+      castDistance: 2.5
+      radius: 3
+      skillCalcFormula: h1 d1 + p150
+      createDelay: 0.1
+    - useSphereCast: 1
+      castStartOffset: {x: 0, y: 0, z: -1.5}
+      castDirection: {x: 0, y: 0, z: 1}
+      castDistance: 3
+      radius: 3
+      skillCalcFormula: h2 d1 + p200
+      createDelay: 0.1
+    - useSphereCast: 1
+      castStartOffset: {x: 0, y: 0, z: -1.5}
+      castDirection: {x: 0, y: 0, z: 1}
+      castDistance: 2
+      radius: 4
+      skillCalcFormula: h3 d1 + p300
+      createDelay: 0
 --- !u!4 &172640639
 Transform:
   m_ObjectHideFlags: 0
