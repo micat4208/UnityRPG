@@ -111,8 +111,6 @@ public sealed class PlayerCharacterEquipController : MonoBehaviour
 			// 자식 오브젝트의 이름이 찾고자 하는 부모 오브젝트와 일치하는지 확인합니다.
 			if (childTransform.gameObject.name == name)
 			{
-				Debug.Log($"partsType = {partsType}");
-				Debug.Log($"childTransform = {childTransform}");
 				_PartsSockets.Add(partsType, childTransform);
 				break;
 			}
@@ -126,9 +124,6 @@ public sealed class PlayerCharacterEquipController : MonoBehaviour
 	/// - newEquipItemInfo : 장착시킬 장비 아이템 정보를 전달합니다.
 	private void EquipMesh(EquipItemInfo newEquipItemInfo)
 	{
-
-		Debug.Log($"newEquipItemInfo.partsType = {newEquipItemInfo.partsType}");
-
 		ref var playerInfo = ref (PlayerManager.Instance.playerController as PlayerController).playerCharacterInfo;
 
 		// 바디 파츠가 장착된 경우
@@ -166,8 +161,6 @@ public sealed class PlayerCharacterEquipController : MonoBehaviour
 		// 장착되는 파츠가 Body 가 아닌 경우
 		else
 		{
-			Debug.Log("_PartsObject.count = " + _PartsObject.Count);
-
 			// 이미 장착된 파츠가 있다면 제거합니다.
 			if (_PartsObject[newEquipItemInfo.partsType] != null)
 			{

@@ -8,10 +8,17 @@ public struct SkillProgressInfo
 	// 스킬 콤보
 	public int skillCombo;
 
-	public SkillProgressInfo(string progressSkillCode, int skillCombo = 0)
+	// 현재 스킬 범위 인덱스
+	public int currentSkillRandeIndex;
+
+	public SkillProgressInfo(
+		string progressSkillCode, 
+		int skillCombo = 0, 
+		int currentSkillRandeIndex = 0)
 	{
 		this.progressSkillCode = progressSkillCode;
 		this.skillCombo = skillCombo;
+		this.currentSkillRandeIndex = currentSkillRandeIndex;
 	}
 
 	// 콤보 카운트를 증가시킵니다.

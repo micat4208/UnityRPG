@@ -22,12 +22,20 @@ public sealed class PlayerSkillController : MonoBehaviour
 	// 실행했었던 스킬 상태 정보들을 나타냅니다.
 	private Dictionary<string, SkillProgressInfo> _UsedSkillInfo = new Dictionary<string, SkillProgressInfo>();
 
+#if UNITY_EDITOR
+	private List<(Vector3 start, Vector3 end, float radius, Color color, float duration, bool drawStart, float addedTime)> _DebugSkillRanges = 
+		new List<(Vector3, Vector3, float, Color, float, bool, float)>();
+#endif
+
+
 	// 스킬을 요청할 수 있는 상태임을 나타냅니다.
 	/// - 이 값이 false 라면 스킬을 요청할 수 없도록 합니다.
 	public bool isRequestable { get; set; } = true;
 
 	// 이동 제한 상태를 나타냅니다.
 	public bool blockMovement { get; set; } = false;
+
+	
 
 
 
@@ -193,4 +201,103 @@ public sealed class PlayerSkillController : MonoBehaviour
 			_UsedSkillInfo[_PrevSkillInfo.Value.skillCode] = skillProgressInfo;
 		}
 	}
+
+	// 스킬 범위 인덱스를 다음 인덱스로 변경합니다.
+	public void NextSkillRangeIndex()
+	{
+		// 현재 실행중인 스킬이 존재하지 않는다면 실행하지 않습니다.
+		if (_CurrentSkillInfo == null) return;
+
+		// 스킬 범위 인덱스 변경
+		SkillProgressInfo skillProgressInfo = _UsedSkillInfo[_CurrentSkillInfo.Value.skillCode];
+		++skillProgressInfo.currentSkillRandeIndex;
+
+		// 만약 인덱스라 배열 범위를 초과하는 경우 마지막 요소 인덱스로 설정
+		if (skillProgressInfo.currentSkillRandeIndex == _CurrentSkillInfo.Value.skillRangeInfos.Length)
+			--skillProgressInfo.currentSkillRandeIndex;
+
+		_UsedSkillInfo[_CurrentSkillInfo.Value.skillCode] = skillProgressInfo;
+	}
+
+	// 스킬 범위를 생성합니다.
+	public void MakeSkillRange()
+	{
+		if (_CurrentSkillInfo == null) return;
+
+		// 스킬 공격 범위 인덱스를 얻습니다.
+		int rangeIndex = _UsedSkillInfo[_CurrentSkillInfo.Value.skillCode].currentSkillRandeIndex;
+
+		// 스킬 범위 정보를 얻습니다.
+		SkillRangeInfo skillRangeInfo = _CurrentSkillInfo.Value.skillRangeInfos[rangeIndex];
+
+		// 계산식 결과를 얻습니다.
+		var calcFormulaResult = skillRangeInfo.GetSkillCalcFormulaResult();
+
+		Ray ray = new Ray(transform.position, transform.forward);
+		float distance = 5.0f;
+		float radius = 2.0f;
+#if UNITY_EDITOR
+		float debugDrawDuration = 5.0f;
+#endif
+		RaycastHit[] hits = Physics.SphereCastAll(
+			ray,
+			radius,
+			distance,
+			1 << LayerMask.NameToLayer("EnemyCharacter"));
+
+#if UNITY_EDITOR
+		void AddDebugRange(
+			Vector3 start, 
+			Vector3 end, 
+			float drawRadius, 
+			Color32 color, 
+			float duration = 5.0f, 
+			bool drawStart = true)
+		{
+			var debugRangeData = (start, end, drawRadius, color, duration, drawStart, Time.time);
+			_DebugSkillRanges.Add(debugRangeData);
+		}
+
+		// 기본 범위 그리기
+		AddDebugRange(ray.origin, ray.origin + (ray.direction * distance), radius, Color.red, debugDrawDuration);
+
+		// 감지 그리기
+		foreach(RaycastHit hit in hits)
+		{
+			Debug.Log(hit.point);
+
+			// 감지된 위치까지의 거리
+			AddDebugRange(ray.origin, hit.point, radius, Color.green, debugDrawDuration, false);
+		}
+#endif
+
+	}
+
+#if UNITY_EDITOR
+
+	// 씬 화면에 어떤 것을 그릴 때 사용되는 메서드
+	private void OnDrawGizmos()
+	{
+		foreach(var debug in _DebugSkillRanges)
+		{
+			// 그릴 색상을 설정합니다.
+			Gizmos.color = debug.color;
+
+			// 시작 위치를 그린다면
+			if (debug.drawStart)
+				// 시작 위치를 그립니다.
+				Gizmos.DrawWireSphere(debug.start, debug.radius);
+
+			// 시작 위치부터 끝 위치까지 선을 그립니다.
+			Gizmos.DrawLine(debug.start, debug.end);
+
+			// 끝 위치를 그립니다.
+			Gizmos.DrawWireSphere(debug.end, debug.radius);
+		}
+
+		// 그리는 시간이 초과한 요소들을 제거합니다.
+		_DebugSkillRanges.RemoveAll((debugData) =>
+			Time.time >= debugData.addedTime + debugData.duration);
+	}
+#endif
 }

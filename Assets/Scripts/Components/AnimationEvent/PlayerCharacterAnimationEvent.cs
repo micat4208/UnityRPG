@@ -28,4 +28,14 @@ public sealed class PlayerCharacterAnimationEvent : MonoBehaviour
 		_PlayerableCharacter.movement.AddImpulse(
 			_PlayerableCharacter.transform.forward * power);
 
+	private void AnimEvent_MakeSkillRange() =>
+		_PlayerableCharacter.skillController?.MakeSkillRange();
+
+	private void AnimEvent_MakeNextSkillRange()
+	{
+		_PlayerableCharacter.skillController?.NextSkillRangeIndex();
+		_PlayerableCharacter.skillController?.MakeSkillRange();
+	}
+
+
 }
