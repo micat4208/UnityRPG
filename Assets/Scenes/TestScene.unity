@@ -447,7 +447,7 @@ MonoBehaviour:
       castDirection: {x: 0, y: 0, z: 1}
       castDistance: 2.5
       radius: 3
-      skillCalcFormula: h1 d1 + p150
+      skillCalcFormula: h2 d1 + p150
       createDelay: 0.1
     - useSphereCast: 1
       castStartOffset: {x: 0, y: 0, z: -1.5}
@@ -462,7 +462,7 @@ MonoBehaviour:
       castDistance: 2
       radius: 4
       skillCalcFormula: h3 d1 + p300
-      createDelay: 0
+      createDelay: 0.1
 --- !u!4 &172640639
 Transform:
   m_ObjectHideFlags: 0
@@ -570,7 +570,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 838732249}
-  m_Enabled: 0
+  m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
@@ -604,7 +604,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 838732249}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05de679344af0fc4987cf18d81a55013, type: 3}
   m_Name: 

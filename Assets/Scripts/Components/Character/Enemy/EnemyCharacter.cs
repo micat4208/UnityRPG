@@ -6,7 +6,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(BehaviorController))]
-public sealed class EnemyCharacter : CharacterBase
+public sealed class EnemyCharacter : CharacterBase, IHPDrawable
 {
 	[Header("적 코드")]
 	[SerializeField] private string _EnemyCode;
@@ -17,6 +17,14 @@ public sealed class EnemyCharacter : CharacterBase
 	public BehaviorController behaviorController { get; private set; }
 
 	public ref EnemyInfo enemyInfo => ref _EnemyInfo;
+
+	#region Implements IHealthPointable...
+	public string drawName => _EnemyInfo.enemyName;
+	public float maxHp => throw new System.NotImplementedException();
+	public float hp => throw new System.NotImplementedException();
+	public Vector3 drawablePosition => transform.position + (Vector3.up * _EnemyInfo.capsuleHeight);
+
+	#endregion
 
 	private void Awake()
 	{
@@ -78,5 +86,8 @@ public sealed class EnemyCharacter : CharacterBase
 
 		// 행동 시작
 		behaviorController.StartBehavior();
+
+		ScreenInstanceBase screenInstance = (PlayerManager.Instance.playerController.screenInstance as ScreenInstanceBase);
+		screenInstance.screenDrawer.AddNameDrawable(this, true);
 	}
 }

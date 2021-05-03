@@ -8,6 +8,12 @@ public class ScreenInstanceBase : ScreenInstance
 	private static RectTransform _MsgBoxBackgroundPrefab;
 	private static MessageBoxWnd _Wnd_MessageBoxPrefab;
 
+	[SerializeField] private ScreenDrawer _ScreenDrawer;
+
+	public ScreenDrawer screenDrawer => _ScreenDrawer;
+
+
+
 	protected override void Awake()
 	{
 		base.Awake();

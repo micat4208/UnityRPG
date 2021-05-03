@@ -224,53 +224,106 @@ public sealed class PlayerSkillController : MonoBehaviour
 	{
 		if (_CurrentSkillInfo == null) return;
 
-		// 스킬 공격 범위 인덱스를 얻습니다.
-		int rangeIndex = _UsedSkillInfo[_CurrentSkillInfo.Value.skillCode].currentSkillRandeIndex;
-
-		// 스킬 범위 정보를 얻습니다.
-		SkillRangeInfo skillRangeInfo = _CurrentSkillInfo.Value.skillRangeInfos[rangeIndex];
-
-		// 계산식 결과를 얻습니다.
-		var calcFormulaResult = skillRangeInfo.GetSkillCalcFormulaResult();
-
-		Ray ray = new Ray(transform.position, transform.forward);
-		float distance = 5.0f;
-		float radius = 2.0f;
-#if UNITY_EDITOR
-		float debugDrawDuration = 5.0f;
-#endif
-		RaycastHit[] hits = Physics.SphereCastAll(
-			ray,
-			radius,
-			distance,
-			1 << LayerMask.NameToLayer("EnemyCharacter"));
-
-#if UNITY_EDITOR
-		void AddDebugRange(
-			Vector3 start, 
-			Vector3 end, 
-			float drawRadius, 
-			Color32 color, 
-			float duration = 5.0f, 
-			bool drawStart = true)
+		IEnumerator DoSphereCast()
 		{
-			var debugRangeData = (start, end, drawRadius, color, duration, drawStart, Time.time);
-			_DebugSkillRanges.Add(debugRangeData);
-		}
+			// 스킬 공격 범위 인덱스를 얻습니다.
+			int rangeIndex = _UsedSkillInfo[_CurrentSkillInfo.Value.skillCode].currentSkillRandeIndex;
 
-		// 기본 범위 그리기
-		AddDebugRange(ray.origin, ray.origin + (ray.direction * distance), radius, Color.red, debugDrawDuration);
+			// 스킬 범위 정보를 얻습니다.
+			SkillRangeInfo skillRangeInfo = _CurrentSkillInfo.Value.skillRangeInfos[rangeIndex];
 
-		// 감지 그리기
-		foreach(RaycastHit hit in hits)
-		{
-			Debug.Log(hit.point);
+			// 스킬 범위 개수를 얻습니다.
+			(int, float) calcFormulaRes = skillRangeInfo.GetSkillCalcFormulaResult();
+			var (rangeCount, value) = calcFormulaRes;
 
-			// 감지된 위치까지의 거리
-			AddDebugRange(ray.origin, hit.point, radius, Color.green, debugDrawDuration, false);
-		}
+
+			// SphereCast 를 사용하지 않는다면 실행하지 않습니다.
+			if (!skillRangeInfo.useSphereCast) yield break;
+
+			// 계산식 결과를 얻습니다.
+			var calcFormulaResult = skillRangeInfo.GetSkillCalcFormulaResult();
+
+			// 오프셋
+			Vector3 castOffset =
+				(transform.forward * skillRangeInfo.castStartOffset.z) +
+				(transform.right * skillRangeInfo.castStartOffset.x) +
+				(transform.up * skillRangeInfo.castStartOffset.y);
+
+			// SphereCast 시작 위치
+			Vector3 castStart = transform.position + castOffset;
+
+			// SphereCast 방향
+			skillRangeInfo.castDirection.Normalize();
+			Vector3 castDirection =
+				(transform.forward * skillRangeInfo.castDirection.z) +
+				(transform.right * skillRangeInfo.castDirection.x) +
+				(transform.up * skillRangeInfo.castDirection.y);
+			castDirection.Normalize();
+
+			Ray ray = new Ray(castStart, castDirection);
+			float distance = skillRangeInfo.castDistance;
+			float radius = skillRangeInfo.radius;
+
+#if UNITY_EDITOR
+			float debugDrawDuration = 5.0f;
 #endif
 
+			void SphereCast()
+			{
+				RaycastHit[] hits = Physics.SphereCastAll(
+					ray,
+					radius,
+					distance,
+					1 << LayerMask.NameToLayer("EnemyCharacter"));
+
+				#region Draw Debug Sphere ...
+#if UNITY_EDITOR
+				void AddDebugRange(
+					Vector3 start,
+					Vector3 end,
+					float drawRadius,
+					Color32 color,
+					float duration = 5.0f,
+					bool drawStart = true)
+				{
+					var debugRangeData = (start, end, drawRadius, color, duration, drawStart, Time.time);
+					_DebugSkillRanges.Add(debugRangeData);
+				}
+
+				// 기본 범위 그리기
+				AddDebugRange(ray.origin, ray.origin + (ray.direction * distance), radius, Color.red, debugDrawDuration);
+
+				// 감지 그리기
+				foreach (RaycastHit hit in hits)
+				{
+					Debug.Log(hit.point);
+
+					// 감지된 위치
+					Vector3 hitPoint = hit.point;
+
+					// SphereCast 시작 위치에서 감지되었다면
+					if (hitPoint == Vector3.zero)
+						hitPoint = ray.origin;
+
+					// 감지된 위치그리기
+					AddDebugRange(ray.origin, hitPoint, radius, Color.green, debugDrawDuration, false);
+				}
+#endif
+				#endregion
+			}
+
+			WaitForSeconds waitCreateDelay = new WaitForSeconds(skillRangeInfo.createDelay);
+
+			SphereCast();
+
+			for (int i = 1; i < rangeCount; ++i)
+			{
+				yield return waitCreateDelay;
+				SphereCast();
+			}
+		}
+
+		StartCoroutine(DoSphereCast());
 	}
 
 #if UNITY_EDITOR
