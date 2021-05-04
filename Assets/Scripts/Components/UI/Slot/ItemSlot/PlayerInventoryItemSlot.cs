@@ -13,6 +13,9 @@ public sealed class PlayerInventoryItemSlot : ItemSlot
 	{
 		base.Awake();
 
+		// 슬롯 타입 설정
+		m_SlotType = SlotType.InventorySlot;
+
 		// 드래그 드랍 사용
 		m_UseDragDrop = true;
 
@@ -69,7 +72,6 @@ public sealed class PlayerInventoryItemSlot : ItemSlot
 				}
 			};
 		};
-
 	}
 
 	// 인벤토리 아이템 슬롯을 초기화합니다.

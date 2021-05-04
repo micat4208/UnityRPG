@@ -37,14 +37,14 @@ public class BaseSlot :
 	/// - DragDropOperation : 드래그 드랍 작업 객체가 전달됩니다.
 	/// - SlotDragVisual : 드래그 비쥬얼 객체가 전달됩니다.
 
+	// 슬롯 드래그 드랍 시 발생하는 이벤트
+	public event System.Action<DragDropOperation> onSlotDragFinished;
+	// 슬롯 드래그 취소 시 발생하는 이벤트
+	public event System.Action<DragDropOperation> onSlotDragCancelled;
+
 	// 슬롯 우클릭 시 발생하는 이벤트
 	public event System.Action onSlotRightClicked;
-	// 슬롯 드래그 시작 시 발생하는 이벤트
-	public event System.Action onSlotDragStarted;
-	// 슬롯 드래그 드랍 시 발생하는 이벤트
-	public event System.Action onSlotDragFinished;
-	// 슬롯 드래그 취소 시 발생하는 이벤트
-	public event System.Action onSlotDragCancelled;
+
 	/// 이벤트
 	/// - 선언된 클래스 내부에서만 호출할 수 있는 Multicast Delegate 입니다.
 	/// - 이벤트의 접근자를 구성할 때에는, property 를 구성할 때와 조금 다르게
@@ -62,6 +62,8 @@ public class BaseSlot :
 
 	// 드래깅 비쥬얼 프리팹을 나타냅니다.
 	private static SlotDragVisual _SlotDragVisualPrefab;
+
+	public SlotType slotType => m_SlotType;
 
 	protected virtual void Awake()
 	{
@@ -103,6 +105,26 @@ public class BaseSlot :
 	{
 		// 드래그 드랍을 사용하지 않는다면 실행하지 않습니다.
 		if (!m_UseDragDrop) return;
+
+
+		if (m_ScreenInstance.dragDropOperation.overlappedComponents.Count != 0)
+		{
+			// 드래그 끝을 알립니다.
+			onSlotDragFinished?.Invoke(m_ScreenInstance.dragDropOperation);
+
+			// 겹친 슬롯의 onSlotDragFinished 이벤트를 발생시킵니다.
+			foreach(var component in m_ScreenInstance.dragDropOperation.overlappedComponents)
+			{
+				if (!(component is BaseSlot)) continue;
+				(component as BaseSlot).onSlotDragFinished?.Invoke(m_ScreenInstance.dragDropOperation);
+			}
+		}
+		else
+		{
+			// 드래그 취소를 알립니다.
+			onSlotDragCancelled?.Invoke(m_ScreenInstance.dragDropOperation);
+		}
+
 
 		// 드래깅 작업을 끝냅니다.
 		m_ScreenInstance.FinishDragDropOperation();

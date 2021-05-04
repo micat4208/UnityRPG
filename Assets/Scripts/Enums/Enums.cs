@@ -31,7 +31,8 @@ public enum MessageBoxButton : byte
 public enum SlotType
 { 
 	ShopItemSlot,
-	InventorySlot
+	InventorySlot,
+	QuickSlot
 }
 
 // 장비 아이템 장착 부위를 나타내기 위한 열거 형식입니다.
