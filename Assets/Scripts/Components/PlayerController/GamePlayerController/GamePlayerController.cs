@@ -31,7 +31,7 @@ public sealed class GamePlayerController : PlayerController
 		// Floating QuickSlotPanel ... 
 		{
 			_HUD_QuickSlotPanel = screenInstance.CreateChildHUD(
-				_HUD_QuickSlotPanelPrefab, InputMode.GameOnly, false, 0.0f, 100.0f);
+				_HUD_QuickSlotPanelPrefab, InputMode.GameOnly, false, true, 0.0f, 100.0f);
 
 			_HUD_QuickSlotPanel.rectTransform.anchoredPosition = Vector2.up * 50.0f;
 		}

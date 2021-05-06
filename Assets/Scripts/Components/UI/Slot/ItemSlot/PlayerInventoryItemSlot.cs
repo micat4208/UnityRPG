@@ -20,7 +20,7 @@ public sealed class PlayerInventoryItemSlot : ItemSlot
 		m_UseDragDrop = true;
 
 		// 드래그 시작 시 실행할 내용을 정의
-		onSlotBeginDragEvent += (dragDropOperation, dragVisual) =>
+		onSlotDragStarted += (dragDropOperation, dragVisual) =>
 		{
 			// 슬롯에 담긴 아이템의 이미지를 어둡게 표시합니다.
 			if (!m_ItemInfo.isEmpty)
@@ -44,12 +44,18 @@ public sealed class PlayerInventoryItemSlot : ItemSlot
 				// 모든 겹친 UI 에 추가된 컴포넌트를 확인합니다.
 				foreach (var overlappedComponent in dragDropOperation.overlappedComponents)
 				{
-					// 겹친 UI 컴포넌트중 PlayerInventoryItemSlot 을 얻습니다.
-					PlayerInventoryItemSlot inventoryItemSlot = overlappedComponent as PlayerInventoryItemSlot;
+
+					BaseSlot overlappedSlot = overlappedComponent as BaseSlot;
+
+					if (overlappedSlot == null)
+						continue;
 
 					// PlayerInventoryItemSlot 형태의 컴포넌트를 얻었다면
-					if (inventoryItemSlot != null)
+					if (overlappedSlot.slotType == SlotType.InventorySlot)
 					{
+						// 겹친 UI 컴포넌트중 PlayerInventoryItemSlot 을 얻습니다.
+						PlayerInventoryItemSlot inventoryItemSlot = overlappedComponent as PlayerInventoryItemSlot;
+
 						// 아이템 슬롯이 비어있다면 스왑이 이루어지지 않도록 합니다.
 						if (m_ItemInfo.isEmpty) continue;
 
@@ -68,6 +74,14 @@ public sealed class PlayerInventoryItemSlot : ItemSlot
 							playerController.playerInventory.MergeItem(this, inventoryItemSlot);
 						// 아이템 스왑
 						else playerController.playerInventory.SwapItem(this, inventoryItemSlot);
+					}
+
+					// 퀵슬롯이라면
+					else if (overlappedSlot.slotType == SlotType.QuickSlot)
+					{
+						QuickSlot quickSlot = overlappedSlot as QuickSlot;
+
+						slotImage.color = new Color(1.0f, 1.0f, 1.0f);
 					}
 				}
 			};

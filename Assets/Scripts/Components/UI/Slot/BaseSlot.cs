@@ -28,12 +28,13 @@ public class BaseSlot :
 	protected string m_InCode;
 
 	public Image slotImage => _Image_Slot;
+	public TextMeshProUGUI countText => _TMP_Count;
 
 	// 드래깅을 사용할 것인지를 나타냅니다.
 	protected bool m_UseDragDrop = false;
 
 	// 드래깅이 시작되었을 경우 발생하는 이벤트
-	public event System.Action<DragDropOperation, SlotDragVisual> onSlotBeginDragEvent;
+	public event System.Action<DragDropOperation, SlotDragVisual> onSlotDragStarted;
 	/// - DragDropOperation : 드래그 드랍 작업 객체가 전달됩니다.
 	/// - SlotDragVisual : 드래그 비쥬얼 객체가 전달됩니다.
 
@@ -144,7 +145,7 @@ public class BaseSlot :
 			m_ScreenInstance.StartDragDropOperation(new DragDropOperation(this, dragVisual.rectTransform));
 
 			// 드래그 시작을 알립니다.
-			onSlotBeginDragEvent?.Invoke(m_ScreenInstance.dragDropOperation, dragVisual);
+			onSlotDragStarted?.Invoke(m_ScreenInstance.dragDropOperation, dragVisual);
 		}
 	}
 
